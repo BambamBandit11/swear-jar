@@ -339,12 +339,12 @@
 
 <div class="people">
   <div class="person">
-    <input class="person-name" id="name1" value="Partner 1" maxlength="16" aria-label="Partner 1 name">
+    <input class="person-name" id="name1" value="Ryan" maxlength="16" aria-label="Ryan name">
     <div class="person-total" id="total1">$0.00</div>
     <button onclick="addSwear(0)">+ Swore!</button>
   </div>
   <div class="person">
-    <input class="person-name" id="name2" value="Partner 2" maxlength="16" aria-label="Partner 2 name">
+    <input class="person-name" id="name2" value="Peggy" maxlength="16" aria-label="Peggy name">
     <div class="person-total" id="total2">$0.00</div>
     <button onclick="addSwear(1)">+ Swore!</button>
   </div>
@@ -362,7 +362,7 @@
   const STORAGE_KEY = 'swear-jar-data';
 
   const defaults = () => ({
-    names: ['Partner 1', 'Partner 2'],
+    names: ['Ryan', 'Peggy'],
     entries: [],
     currency: '$',
     amount: 1
@@ -494,12 +494,12 @@
 
   // Name editing
   document.getElementById('name1').addEventListener('input', e => {
-    state.names[0] = e.target.value || 'Partner 1';
+    state.names[0] = e.target.value || 'Ryan';
     save();
     render();
   });
   document.getElementById('name2').addEventListener('input', e => {
-    state.names[1] = e.target.value || 'Partner 2';
+    state.names[1] = e.target.value || 'Peggy';
     save();
     render();
   });
