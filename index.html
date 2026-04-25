@@ -156,6 +156,17 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    min-width: 4.5rem;
+  }
+
+  .amounts button .word-label {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    font-weight: 400;
   }
 
   .amounts button:hover {
@@ -167,6 +178,10 @@
     background: var(--accent);
     color: white;
     border-color: var(--accent);
+  }
+
+  .amounts button.active .word-label {
+    opacity: 0.85;
   }
 
   .custom-amount {
@@ -244,6 +259,7 @@
   }
 
   .entry-name { font-weight: 600; }
+  .entry-label { color: var(--muted); font-size: 0.75rem; font-style: italic; }
   .entry-time { color: var(--muted); font-size: 0.75rem; }
   .entry-amount { font-weight: 600; color: var(--accent); }
 
@@ -326,11 +342,10 @@
 </div>
 
 <div class="amounts" id="amounts">
-  <button data-val="0.25">0.25</button>
-  <button data-val="0.50">0.50</button>
-  <button data-val="1" class="active">1.00</button>
-  <button data-val="2">2.00</button>
-  <button data-val="5">5.00</button>
+  <button data-val="0.25" data-label="Damn"><span>0.25</span><span class="word-label">Damn</span></button>
+  <button data-val="0.50" data-label="Sh*t"><span>0.50</span><span class="word-label">Sh*t</span></button>
+  <button data-val="1" data-label="F*ck" class="active"><span>1.00</span><span class="word-label">F*ck</span></button>
+  <button data-val="2"><span>2.00</span></button>
 </div>
 
 <div class="custom-amount">
@@ -365,7 +380,8 @@
     names: ['Ryan', 'Peggy'],
     entries: [],
     currency: '$',
-    amount: 1
+    amount: 1,
+    label: 'F*ck'
   });
 
   let state = load();
@@ -395,9 +411,12 @@
 
   function addSwear(personIdx) {
     const amount = getAmount();
+    const activeBtn = document.querySelector('#amounts button.active');
+    const label = activeBtn ? activeBtn.dataset.label || '' : '';
     state.entries.unshift({
       person: personIdx,
       amount,
+      label: label,
       time: Date.now()
     });
     save();
@@ -454,6 +473,7 @@
       <div class="entry">
         <div class="entry-left">
           <span class="entry-name">${esc(state.names[e.person])}</span>
+          ${e.label ? `<span class="entry-label">${esc(e.label)}</span>` : ''}
           <span class="entry-time">${timeAgo(e.time)}</span>
         </div>
         <div>
